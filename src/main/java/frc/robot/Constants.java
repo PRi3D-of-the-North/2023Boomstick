@@ -18,15 +18,15 @@ public final class Constants {
                           RIGHT_FRONT_STEER = 7,
                           RIGHT_REAR_STEER = 8;
 
-  public static final int LEFT_FRONT_ENCODER = 1,
-                          LEFT_REAR_ENCODER = 2,
-                          RIGHT_FRONT_ENCODER = 3,
-                          RIGHT_REAR_ENCODER = 4;
+  public static final int LEFT_FRONT_ENCODER = 15,
+                          LEFT_REAR_ENCODER = 16,
+                          RIGHT_FRONT_ENCODER = 17,
+                          RIGHT_REAR_ENCODER = 18;
 
   // The left-to-right distance between the drivetrain wheels. Should be measured from center to center.
-  public static final double DRIVETRAIN_TRACKWIDTH_METERS = 1.0; // FIXME Measure and set trackwidth
+  public static final double DRIVETRAIN_TRACKWIDTH_METERS = 0.37; // Measure and set trackwidth
   // The front-to-back distance between the drivetrain wheels. Should be measured from center to center.
-  public static final double DRIVETRAIN_WHEELBASE_METERS = 1.0; // FIXME Measure and set wheelbase
+  public static final double DRIVETRAIN_WHEELBASE_METERS = 0.623; // Measure and set wheelbase
 
   public static final double LEFT_FRONT_STEER_OFFSET = -Math.toRadians(0.0); // FIXME Measure and set front left steer offset
   public static final double LEFT_REAR_STEER_OFFSET = -Math.toRadians(0.0); // FIXME Measure and set front right steer offset
