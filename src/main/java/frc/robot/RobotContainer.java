@@ -4,12 +4,16 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.DrivetrainTeleOp;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.Arm;
 
 public class RobotContainer {
 	private final CommandXboxController mXbox = new CommandXboxController(0);
 	// private final CommandJoystick mJoystick = new CommandJoystick(1);
 
 	private final Drivetrain mDrivetrain = new Drivetrain();
+	private final Elevator mElevator = new Elevator();
+	private final Arm mArm = new Arm();
 
 	public RobotContainer() {
 		mDrivetrain.setDefaultCommand(new DrivetrainTeleOp(
@@ -18,11 +22,13 @@ public class RobotContainer {
 				() -> -modifyAxis(mXbox.getLeftX()) * Drivetrain.MAX_VELOCITY_METERS_PER_SECOND,
 				() -> -modifyAxis(mXbox.getRightX()) * Drivetrain.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND));
 
+		mElevator.setDefaultCommand()
 		configureBindings();
 	}
 
 	private void configureBindings() {
-		// mXbox.b().whileTrue(new DrivetrainTeleOp(mDrivetrain, mXbox));
+		mXbox.back().onTrue(mDrivetrain.zeroGyroscope());
+		mXbox.b().onTrue(mArmCommand)
 	}
 
 	public Command getAutonomousCommand() {
@@ -48,5 +54,9 @@ public class RobotContainer {
 		value = Math.copySign(value * value, value);
 
 		return value;
+	}
+
+	public void zeroGyro() {
+		mDrivetrain.zeroGyroscope();
 	}
 }

@@ -14,6 +14,8 @@ import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -67,14 +69,16 @@ public class Drivetrain extends SubsystemBase {
   private final SwerveModule mRightFront;
   private final SwerveModule mLeftRear;
   private final SwerveModule mRightRear;
+  private final ShuffleboardTab mTab;
 
   private ChassisSpeeds mChassisSpeeds = new ChassisSpeeds(0.0, 0.0, 0.0);
 
   public Drivetrain() {
-    ShuffleboardTab tab = Shuffleboard.getTab("Drivetrain");
+    mTab = Shuffleboard.getTab("Drivetrain");
+
     mLeftFront = Mk4iSwerveModuleHelper.createFalcon500(
             // This parameter is optional, but will allow you to see the current state of the module on the dashboard.
-            tab.getLayout("Front Left Module", BuiltInLayouts.kList)
+            mTab.getLayout("Front Left Module", BuiltInLayouts.kList)
                     .withSize(2, 4)
                     .withPosition(0, 0),
             // This can either be STANDARD or FAST depending on your gear configuration
@@ -90,7 +94,7 @@ public class Drivetrain extends SubsystemBase {
     );
 
     mRightFront = Mk4iSwerveModuleHelper.createFalcon500(
-            tab.getLayout("Front Right Module", BuiltInLayouts.kList)
+        mTab.getLayout("Front Right Module", BuiltInLayouts.kList)
                     .withSize(2, 4)
                     .withPosition(2, 0),
             Mk4iSwerveModuleHelper.GearRatio.L3,
@@ -101,7 +105,7 @@ public class Drivetrain extends SubsystemBase {
     );
 
     mLeftRear = Mk4iSwerveModuleHelper.createFalcon500(
-            tab.getLayout("Rear Left Module", BuiltInLayouts.kList)
+        mTab.getLayout("Rear Left Module", BuiltInLayouts.kList)
                     .withSize(2, 4)
                     .withPosition(4, 0),
             Mk4iSwerveModuleHelper.GearRatio.L3,
@@ -112,7 +116,7 @@ public class Drivetrain extends SubsystemBase {
     );
 
     mRightRear = Mk4iSwerveModuleHelper.createFalcon500(
-            tab.getLayout("Rear Right Module", BuiltInLayouts.kList)
+        mTab.getLayout("Rear Right Module", BuiltInLayouts.kList)
                     .withSize(2, 4)
                     .withPosition(6, 0),
             Mk4iSwerveModuleHelper.GearRatio.L3,
@@ -127,8 +131,10 @@ public class Drivetrain extends SubsystemBase {
    * Sets the gyroscope angle to zero. This can be used to set the direction the robot is currently facing to the
    * 'forwards' direction.
    */
-  public void zeroGyroscope() {
-    mNavX.zeroYaw();
+  public CommandBase zeroGyroscope() {
+        return runOnce(() -> {
+                mNavX.zeroYaw();
+        });
   }
 
   public Rotation2d getGyroscopeRotation() {
@@ -149,6 +155,7 @@ public class Drivetrain extends SubsystemBase {
   public void periodic() {
     SwerveModuleState[] states = m_kinematics.toSwerveModuleStates(mChassisSpeeds);
     SwerveDriveKinematics.desaturateWheelSpeeds(states, MAX_VELOCITY_METERS_PER_SECOND);
+    SmartDashboard.putNumber("NavX Angle", mNavX.getAngle());
 
     mLeftFront.set(states[0].speedMetersPerSecond / MAX_VELOCITY_METERS_PER_SECOND * MAX_VOLTAGE, states[0].angle.getRadians());
     mRightFront.set(states[1].speedMetersPerSecond / MAX_VELOCITY_METERS_PER_SECOND * MAX_VOLTAGE, states[1].angle.getRadians());
