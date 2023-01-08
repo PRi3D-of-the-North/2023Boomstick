@@ -18,11 +18,15 @@ public final class Constants {
                           RIGHT_FRONT_STEER = 7,
                           RIGHT_REAR_STEER = 8;
   
-  public static final int ELevator_Extend = 9,
-                          Arm_Rotate = 10;
+  public static final int ELEVATOR = 9, // SPARK MAX
+                          ARM = 10;
 
+  public static final int ARM_FORWARD_LIMIT = 0, // DIO
+                          ARM_REAR_LIMIT = 1,
+                          ELEVATOR_RETRACT_LIMIT = 2,
+                          ELEVATOR_EXTEND_LIMIT = 3;
 
-  public static final int LEFT_FRONT_ENCODER = 15,
+  public static final int LEFT_FRONT_ENCODER = 15, // CANCODERS
                           LEFT_REAR_ENCODER = 16,
                           RIGHT_FRONT_ENCODER = 17,
                           RIGHT_REAR_ENCODER = 18;

@@ -2,33 +2,41 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
+import frc.robot.commands.ArmSetPercentOutput;
 import frc.robot.commands.DrivetrainTeleOp;
+import frc.robot.commands.ElevatorSetPercentOutput;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Arm;
 
 public class RobotContainer {
 	private final CommandXboxController mXbox = new CommandXboxController(0);
-	// private final CommandJoystick mJoystick = new CommandJoystick(1);
+	private final CommandJoystick mJoystick = new CommandJoystick(1);
 
 	private final Drivetrain mDrivetrain = new Drivetrain();
 	private final Elevator mElevator = new Elevator();
 	private final Arm mArm = new Arm();
 
 	public RobotContainer() {
+		mArm.setDefaultCommand(new ArmSetPercentOutput(mArm, 0.0));
 		mDrivetrain.setDefaultCommand(new DrivetrainTeleOp(
 				mDrivetrain,
 				() -> -modifyAxis(mXbox.getLeftY()) * Drivetrain.MAX_VELOCITY_METERS_PER_SECOND,
 				() -> -modifyAxis(mXbox.getLeftX()) * Drivetrain.MAX_VELOCITY_METERS_PER_SECOND,
 				() -> -modifyAxis(mXbox.getRightX()) * Drivetrain.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND));
+		mElevator.setDefaultCommand(new ElevatorSetPercentOutput(mElevator, 0.0));
 
-		mElevator.setDefaultCommand()
 		configureBindings();
 	}
 
 	private void configureBindings() {
 		mXbox.back().onTrue(mDrivetrain.zeroGyroscope());
-		mXbox.b().onTrue(mArmCommand)
+		
+		mJoystick.button(3).whileTrue(new ArmSetPercentOutput(mArm, -0.5));
+		mJoystick.button(4).whileTrue(new ArmSetPercentOutput(mArm, 0.5));
+		mJoystick.button(5).whileTrue(new ElevatorSetPercentOutput(mElevator, -0.5));
+		mJoystick.button(6).whileTrue(new ElevatorSetPercentOutput(mElevator, 0.5));
 	}
 
 	public Command getAutonomousCommand() {

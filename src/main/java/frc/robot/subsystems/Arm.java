@@ -1,35 +1,31 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.RelativeEncoder;
-import com.revrobotics.SparkMaxPIDController;
+import com.revrobotics.CANSparkMax.IdleMode;
 
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-public class Arm {
-    private CANSparkMax motor = new CANSparkMax(
-            Constants.ELevator_Extend,
-            CANSparkMax.MotorType.kBrushless);
-    RelativeEncoder encoder = motor.getEncoder();
-    SparkMaxPIDController pid = motor.getPIDController();
 
-    double angle;
-
-    public static final double P = 0.1, I = 0, D = 0;
+public class Arm extends SubsystemBase {
+    private final int CURRENT_LIMIT = 30; 
+    private final CANSparkMax mMotor = new CANSparkMax(Constants.ARM, CANSparkMax.MotorType.kBrushless);
 
     public Arm(){
-        encoder.setPositionConversionFactor(TURN_TO_Inch);
-        pid.setP(P);
-        pid.setI(I);
-        pid.setD(D);
+        mMotor.restoreFactoryDefaults();
+        mMotor.setIdleMode(IdleMode.kBrake);
+        mMotor.setSmartCurrentLimit(CURRENT_LIMIT);
+        mMotor.setInverted(false);
+        mMotor.burnFlash();
     }
 
-    public void SetAngle(double Angle){
-        this.angle = Angle;
+    public void setPercentOutput(double output) {
+        if (output > 1.0) {
+            output = 1.0;
+        } else if (output < -1.0) {
+            output = -1.0;
+        }
 
-        pid.setReference(Angle, CANSparkMax.ControlType.kPosition);
-    }
-
-    public void Zero(double Angle) {
-        encoder.setPosition(Angle);
+        mMotor.set(output);
     }
 }
+
