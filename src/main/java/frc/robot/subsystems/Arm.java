@@ -27,7 +27,6 @@ public class Arm extends SubsystemBase {
         mMotor.setIdleMode(IdleMode.kBrake);
         mMotor.setSmartCurrentLimit(CURRENT_LIMIT);
         mMotor.setInverted(false);
-        mMotor.getEncoder().setInverted(false);
         mMotor.burnFlash();
     }
 
