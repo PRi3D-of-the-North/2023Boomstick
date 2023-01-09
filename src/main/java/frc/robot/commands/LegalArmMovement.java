@@ -42,6 +42,14 @@ public class LegalArmMovement extends CommandBase {
     length = mElevator.GetLength();
      angle = mArm.GetAngle();
 
+     angle += mAngleAxis;
+     if (mTrigger){
+      length += 0.2;
+     }
+     if (mThumb){
+      length -= 0.2;
+     }
+
       if (angle < Constants.MinAngle){
           angle = Constants.MinAngle;
       }
