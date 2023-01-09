@@ -3,6 +3,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.commands.ArmPreset;
 import frc.robot.commands.ArmSetPercentOutput;
 import frc.robot.commands.ClawSetState;
 import frc.robot.commands.DrivetrainTeleOp;
@@ -25,7 +26,7 @@ public class RobotContainer {
 	private final LEDs mLEDs = new LEDs();
 
 	public RobotContainer() {
-		mArm.setDefaultCommand(new LegalArmMovement(mElevator, mArm,  mJoystick.getRawAxis(1), mJoystick.button(0), mJoystick.button(1)));
+		mArm.setDefaultCommand(new LegalArmMovement(mElevator, mArm, mJoystick));
 		mClaw.setDefaultCommand(new ClawSetState(mClaw, true));
 		mDrivetrain.setDefaultCommand(new DrivetrainTeleOp(
 				mDrivetrain,
@@ -46,6 +47,9 @@ public class RobotContainer {
 		mJoystick.button(4).onTrue(new ClawSetState(mClaw, true));
 		mJoystick.button(5).whileTrue(new ElevatorSetPercentOutput(mElevator, -0.5));
 		mJoystick.button(6).whileTrue(new ElevatorSetPercentOutput(mElevator, 0.5));
+		mJoystick.button(7).onTrue(new ArmPreset(mElevator, mArm, 7));
+		mJoystick.button(9).onTrue(new ArmPreset(mElevator, mArm, 9));
+		mJoystick.button(11).onTrue(new ArmPreset(mElevator, mArm, 11));
 	}
 
 	public Command getAutonomousCommand() {

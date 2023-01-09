@@ -7,7 +7,7 @@ package frc.robot.commands;
 import java.lang.Math;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
+import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Arm;
 import frc.robot.Constants;
@@ -16,19 +16,14 @@ public class LegalArmMovement extends CommandBase {
   /** Creates a new LegalArmMovement. */
   private final Elevator mElevator;
   private final Arm mArm;
-  private double mAngleAxis;
-  private boolean mTrigger;
-  private boolean mThumb;
-  public LegalArmMovement(Elevator elevator, Arm arm, double AngleAxis, boolean Trigger, boolean Thumb) {
-    // Use addRequirements() here to declare subsystem dependencies.
+  private final CommandJoystick mJoystick;
+
+  public LegalArmMovement(Elevator elevator, Arm arm, CommandJoystick joystick) {
     mElevator = elevator;
     mArm = arm;
-    mAngleAxis = AngleAxis;
-    mTrigger = Trigger;
-    mThumb = Thumb;
-
-    addRequirements(mElevator);
-    addRequirements(mArm);
+    mJoystick = joystick;
+    
+    addRequirements(mElevator, mArm);
   }
 
   // Called when the command is initially scheduled.
@@ -42,11 +37,11 @@ public class LegalArmMovement extends CommandBase {
     length = mElevator.GetLength();
      angle = mArm.GetAngle();
 
-     angle += mAngleAxis;
-     if (mTrigger){
+     angle += mJoystick.getRawAxis(1);
+     if (mJoystick.button(1).getAsBoolean()) { // TRIGGER
       length += 0.2;
      }
-     if (mThumb){
+     if (mJoystick.button(2).getAsBoolean()){ // THUMB
       length -= 0.2;
      }
 
@@ -63,8 +58,8 @@ public class LegalArmMovement extends CommandBase {
           length = Constants.MaxLength;
       }
       double Max_Length, Max_Length2;
-      Max_Length = (61 / Math.abs(Math.cos(angle))) - Constants.DefaultMinLength;//make shure that this is degrees and not radians
-      Max_Length2 = (59/ Math.abs(Math.sin(angle))) - Constants.DefaultMinLength;
+      Max_Length = (61 / Math.abs(Math.cos((angle) * (Math.PI / 180)))) - Constants.DefaultMinLength;//make shure that this is degrees and not radians
+      Max_Length2 = (59/ Math.abs(Math.sin((angle) * (Math.PI / 180)))) - Constants.DefaultMinLength;
 
       if (length > Max_Length || length > Max_Length2){
       
