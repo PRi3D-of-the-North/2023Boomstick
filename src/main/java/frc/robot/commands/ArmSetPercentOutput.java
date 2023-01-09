@@ -22,6 +22,12 @@ public class ArmSetPercentOutput extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    if (mArm.getRearLimit() && mOutput < 0.0) {
+      mOutput = 0.0;
+    } else if (mArm.getForwardLimit() && mOutput > 0.0) {
+      mOutput = 0.0;
+    }
+
     mArm.setPercentOutput(mOutput);
   }
 

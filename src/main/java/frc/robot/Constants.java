@@ -26,11 +26,16 @@ public final class Constants {
                           ELEVATOR_RETRACT_LIMIT = 2,
                           ELEVATOR_EXTEND_LIMIT = 3;
 
+  public static final int CLAW_FORWARD = 0, // Pistons
+                          CLAW_REVERSE = 1;
+
   public static final int LEFT_FRONT_ENCODER = 15, // CANCODERS
                           LEFT_REAR_ENCODER = 16,
                           RIGHT_FRONT_ENCODER = 17,
                           RIGHT_REAR_ENCODER = 18;
 
+  public static final double EPSILON = 0.0001;
+  
   // The left-to-right distance between the drivetrain wheels. Should be measured from center to center.
   public static final double DRIVETRAIN_TRACKWIDTH_METERS = 0.37; // Measure and set trackwidth
   // The front-to-back distance between the drivetrain wheels. Should be measured from center to center.

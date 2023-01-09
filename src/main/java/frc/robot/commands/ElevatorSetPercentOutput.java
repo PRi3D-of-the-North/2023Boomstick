@@ -21,6 +21,12 @@ public class ElevatorSetPercentOutput extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    if (mElevator.getRetractLimit() && mOutput < 0.0) {
+      mOutput = 0.0;
+    } else if (mElevator.getExtendLimit() && mOutput > 0.0) {
+      mOutput = 0.0;
+    }
+
     mElevator.setPercentOutput(mOutput);
   }
 

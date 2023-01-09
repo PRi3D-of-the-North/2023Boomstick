@@ -129,10 +129,14 @@ public class Drivetrain extends SubsystemBase {
    * Sets the gyroscope angle to zero. This can be used to set the direction the robot is currently facing to the
    * 'forwards' direction.
    */
-  public CommandBase zeroGyroscope() {
+  public CommandBase zeroGyroscopeCommand() {
         return runOnce(() -> {
                 mNavX.zeroYaw();
         });
+  }
+
+  public void zeroGyroscope() {
+        mNavX.zeroYaw();
   }
 
   public Rotation2d getGyroscopeRotation() {
