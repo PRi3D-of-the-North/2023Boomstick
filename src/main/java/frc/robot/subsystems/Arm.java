@@ -1,6 +1,10 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkMaxPIDController;
+import com.revrobotics.SparkMaxRelativeEncoder;
+import com.revrobotics.CANSparkMax.ControlType;
 import com.revrobotics.CANSparkMax.IdleMode;
 
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -12,6 +16,9 @@ public class Arm extends SubsystemBase {
     private final double TOTAL_GEAR_RATIO = 183.33;
     private final int CURRENT_LIMIT = 30; 
     private final CANSparkMax mMotor = new CANSparkMax(Constants.ARM, CANSparkMax.MotorType.kBrushless);
+    private final RelativeEncoder mEncoder = mMotor.getEncoder(SparkMaxRelativeEncoder.Type.kHallSensor, Constants.MAX_COUNTS_PER_REV);
+    private SparkMaxPIDController mPID = mMotor.getPIDController();
+    
 
     private final DigitalInput mRearLimit = new DigitalInput(Constants.ARM_REAR_LIMIT);
     private final DigitalInput mForwardLimit = new DigitalInput(Constants.ARM_FORWARD_LIMIT);
@@ -28,6 +35,12 @@ public class Arm extends SubsystemBase {
         mMotor.setSmartCurrentLimit(CURRENT_LIMIT);
         mMotor.setInverted(false);
         mMotor.burnFlash();
+
+        mEncoder.setPositionConversionFactor(TOTAL_GEAR_RATIO / 360.0);
+        mPID.setFeedbackDevice(mEncoder);
+        mPID.setP(0.0);
+        mPID.setI(0.0);
+        mPID.setD(0.0);
     }
 
     public void setPercentOutput(double output) {
@@ -51,6 +64,10 @@ public class Arm extends SubsystemBase {
     public void setEncoderValueInDegrees(double positionInDegrees) {
         int positionInMAXUnits = (int) ((TOTAL_GEAR_RATIO * Constants.MAX_COUNTS_PER_REV) * (positionInDegrees / 360.0));
         mMotor.getEncoder().setPosition(positionInMAXUnits);
+    }
+
+    public void setAngleInDegrees(double positionInDegrees) {
+        mPID.setReference(positionInDegrees, ControlType.kPosition);
     }
 }
 
