@@ -1,17 +1,18 @@
 package frc.robot.subsystems;
 import com.ctre.phoenix.led.CANdle;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class LEDs extends SubsystemBase {
+public class LEDs {
 
-    private final com.ctre.phoenix.led.CANdle LEDStrip = new CANdle(0);//CanID
-    private int r, g, b;
+    private final CANdle LEDStrip = new CANdle(1);//CanID
+    private int r = 50; int g = 200; int b = 0;
 
     public void SetAll(int r, int g, int b){
-        LEDStrip.setLEDs(r,g,b);
+
+        LEDStrip.setLEDs(this.r,this.g,this.b, 0, 0, 65);
+        
     }
 
-    public void ChangeLEDS(int rChange, int gChange, int bChange){
+    /*public void ChangeLEDS(int rChange, int gChange, int bChange){
         this.r = this.r + rChange;
         this.g = this.g + gChange;
         this.b = this.b + bChange;
@@ -39,13 +40,13 @@ public class LEDs extends SubsystemBase {
 
     public void RED(){
         LEDStrip.setLEDs(255,0,0);
-    }
+    }/*/
 
     public void GREEN(){
         LEDStrip.setLEDs(0,255,0);
     }
 
-    public void BLUE(){
+    /*public void BLUE(){
         LEDStrip.setLEDs(0,0,255);
     }
 
@@ -63,5 +64,5 @@ public class LEDs extends SubsystemBase {
 
     public void YELLOW(){
         LEDStrip.setLEDs(255,255,0);
-    }
+    }*/
 }
