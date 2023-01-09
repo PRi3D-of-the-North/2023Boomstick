@@ -8,10 +8,12 @@ import frc.robot.commands.ArmSetPercentOutput;
 import frc.robot.commands.ClawSetState;
 import frc.robot.commands.DrivetrainTeleOp;
 import frc.robot.commands.ElevatorSetPercentOutput;
+import frc.robot.commands.LEDChange;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Claw;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.LEDs;
 
 public class RobotContainer {
 	private final CommandXboxController mXbox = new CommandXboxController(0);
@@ -21,6 +23,7 @@ public class RobotContainer {
 	private final Claw mClaw = new Claw();
 	private final Drivetrain mDrivetrain = new Drivetrain();
 	private final Elevator mElevator = new Elevator();
+	private final LEDs mLEDs = new LEDs();
 
 	public RobotContainer() {
 		mArm.setDefaultCommand(new ArmSetPercentOutput(mArm, 0.0));
@@ -45,7 +48,12 @@ public class RobotContainer {
 
 		mJoystick.button(5).whileTrue(new ElevatorSetPercentOutput(mElevator, -1.0));
 		mJoystick.button(6).whileTrue(new ElevatorSetPercentOutput(mElevator, 1.0));
+
+		mJoystick.button(9).whileTrue(new LEDChange(mLEDs, mJoystick.button(8).getAsBoolean(), mJoystick.button(10).getAsBoolean(), mJoystick.button(9).getAsBoolean(), mJoystick.getThrottle()));
+		mJoystick.button(10).whileTrue(new LEDChange(mLEDs, mJoystick.button(8).getAsBoolean(), mJoystick.button(10).getAsBoolean(), mJoystick.button(9).getAsBoolean(), mJoystick.getThrottle()));
+		mJoystick.button(8).whileTrue(new LEDChange(mLEDs, mJoystick.button(8).getAsBoolean(), mJoystick.button(10).getAsBoolean(), mJoystick.button(9).getAsBoolean(), mJoystick.getThrottle()));
 	}
+	
 
 	public Command getAutonomousCommand() {
 		return null;
