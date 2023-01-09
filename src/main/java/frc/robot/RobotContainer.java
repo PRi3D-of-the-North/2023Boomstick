@@ -1,3 +1,4 @@
+
 package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.Command;
@@ -39,10 +40,11 @@ public class RobotContainer {
 		
 		mJoystick.button(3).whileTrue(new ArmSetPercentOutput(mArm, -0.2));
 		mJoystick.button(4).whileTrue(new ArmSetPercentOutput(mArm, 0.2));
-		mJoystick.button(5).onTrue(new ClawSetState(mClaw, false));
-		mJoystick.button(6).onTrue(new ClawSetState(mClaw, true));
-		//mJoystick.button(5).whileTrue(new ElevatorSetPercentOutput(mElevator, -1.0));
-		//mJoystick.button(6).whileTrue(new ElevatorSetPercentOutput(mElevator, 1.0));
+		mJoystick.button(11).onTrue(new ClawSetState(mClaw, false));
+		mJoystick.button(12).onTrue(new ClawSetState(mClaw, true));
+
+		mJoystick.button(5).whileTrue(new ElevatorSetPercentOutput(mElevator, -1.0));
+		mJoystick.button(6).whileTrue(new ElevatorSetPercentOutput(mElevator, 1.0));
 	}
 
 	public Command getAutonomousCommand() {
@@ -63,7 +65,7 @@ public class RobotContainer {
 
 	private static double modifyAxis(double value) {
 		// Deadband
-		value = deadband(value, 0.05);
+		value = deadband(value, 0.1);
 		// Square the axis
 		value = Math.copySign(value * value, value);
 
