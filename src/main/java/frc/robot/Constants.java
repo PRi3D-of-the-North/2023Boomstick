@@ -34,6 +34,7 @@ public final class Constants {
                           RIGHT_FRONT_ENCODER = 17,
                           RIGHT_REAR_ENCODER = 18;
 
+  public static final int MAX_COUNTS_PER_REV = 42;
   public static final double EPSILON = 0.0001;
   
   // The left-to-right distance between the drivetrain wheels. Should be measured from center to center.

@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Arm extends SubsystemBase {
+    private final double TOTAL_GEAR_RATIO = 183.33;
     private final int CURRENT_LIMIT = 30; 
     private final CANSparkMax mMotor = new CANSparkMax(Constants.ARM, CANSparkMax.MotorType.kBrushless);
 
@@ -26,6 +27,7 @@ public class Arm extends SubsystemBase {
         mMotor.setIdleMode(IdleMode.kBrake);
         mMotor.setSmartCurrentLimit(CURRENT_LIMIT);
         mMotor.setInverted(false);
+        mMotor.getEncoder().setInverted(false);
         mMotor.burnFlash();
     }
 
@@ -45,6 +47,11 @@ public class Arm extends SubsystemBase {
 
     public boolean getForwardLimit() {
         return !mForwardLimit.get();
+    }
+
+    public void setEncoderValueInDegrees(double positionInDegrees) {
+        int positionInMAXUnits = (int) ((TOTAL_GEAR_RATIO * Constants.MAX_COUNTS_PER_REV) * (positionInDegrees / 360.0));
+        mMotor.getEncoder().setPosition(positionInMAXUnits);
     }
 }
 

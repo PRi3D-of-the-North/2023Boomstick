@@ -1,16 +1,16 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.ArmSetPercentOutput;
 import frc.robot.commands.ClawSetState;
 import frc.robot.commands.DrivetrainTeleOp;
 import frc.robot.commands.ElevatorSetPercentOutput;
-import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Claw;
+import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Elevator;
 
 public class RobotContainer {
 	private final CommandXboxController mXbox = new CommandXboxController(0);
@@ -72,5 +72,13 @@ public class RobotContainer {
 
 	public void zeroGyro() {
 		mDrivetrain.zeroGyroscope();
+	}
+
+	public Arm getArm() {
+		return mArm;
+	}
+
+	public Elevator getElevator() {
+		return mElevator;
 	}
 }
