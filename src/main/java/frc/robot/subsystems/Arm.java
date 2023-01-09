@@ -3,6 +3,10 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkMaxPIDController;
+
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -13,8 +17,13 @@ public class Arm extends SubsystemBase {
     private final int CURRENT_LIMIT = 30; 
     private final CANSparkMax mMotor = new CANSparkMax(Constants.ARM, CANSparkMax.MotorType.kBrushless);
 
+    private final RelativeEncoder encoder = mMotor.getEncoder();
+    private final SparkMaxPIDController pid = mMotor.getPIDController();
+
     private final DigitalInput mRearLimit = new DigitalInput(Constants.ARM_REAR_LIMIT);
     private final DigitalInput mForwardLimit = new DigitalInput(Constants.ARM_FORWARD_LIMIT);
+
+    double Angle;//needs default initial angle
     
     @Override
     public void periodic() {
@@ -41,12 +50,26 @@ public class Arm extends SubsystemBase {
         mMotor.set(output);
     }
 
+    public double GetAngle(){
+        return this.Angle;
+    }
+
+    public void SetAngle(double angle){
+
+    }
+
     public boolean getRearLimit() {
         return !mRearLimit.get();
     }
 
     public boolean getForwardLimit() {
         return !mForwardLimit.get();
+    }
+
+    public void HardSetPosition(double angle){
+        this.Angle = angle;
+
+        pid.setReference(Angle, CANSparkMax.ControlType.kPosition);
     }
 
     public void setEncoderValueInDegrees(double positionInDegrees) {

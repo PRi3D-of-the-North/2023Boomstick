@@ -3,6 +3,10 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkMaxPIDController;
+
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -16,6 +20,11 @@ public class Elevator extends SubsystemBase {
 
     private final DigitalInput mRetractLimit = new DigitalInput(Constants.ELEVATOR_RETRACT_LIMIT);
     private final DigitalInput mExtendLimit = new DigitalInput(Constants.ELEVATOR_EXTEND_LIMIT);
+
+    RelativeEncoder encoder = mMotor.getEncoder();
+    SparkMaxPIDController pid = mMotor.getPIDController();
+
+    double Length;
 
     @Override
     public void periodic() {
@@ -47,6 +56,16 @@ public class Elevator extends SubsystemBase {
 
     public boolean getExtendLimit() {
         return !mExtendLimit.get();
+    }
+
+    public double GetLength(){
+        return this.Length;
+    }
+
+    public void HardSetPosition(double length){
+        this.Length = length;
+
+        pid.setReference(Length, CANSparkMax.ControlType.kPosition);
     }
 
     public void setEncoderValueInInches(double positionInInches) {

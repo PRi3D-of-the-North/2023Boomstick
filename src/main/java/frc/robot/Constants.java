@@ -36,6 +36,9 @@ public final class Constants {
 
   public static final int MAX_COUNTS_PER_REV = 42;
   public static final double EPSILON = 0.0001;
+
+  public static final double MaxAngle = 180, MinAngle = 0, MaxLength = 32, MinLength = 0;
+  public static final double DefaultMinLength = 49; //Inches
   
   // The left-to-right distance between the drivetrain wheels. Should be measured from center to center.
   public static final double DRIVETRAIN_TRACKWIDTH_METERS = 0.37; // Measure and set trackwidth
