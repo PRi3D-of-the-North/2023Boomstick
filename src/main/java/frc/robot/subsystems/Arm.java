@@ -38,7 +38,7 @@ public class Arm extends SubsystemBase {
 
         mEncoder.setPositionConversionFactor(TOTAL_GEAR_RATIO / 360.0);
         mPID.setFeedbackDevice(mEncoder);
-        mPID.setP(0.0);
+        mPID.setP(0.25);
         mPID.setI(0.0);
         mPID.setD(0.0);
     }
@@ -68,6 +68,14 @@ public class Arm extends SubsystemBase {
 
     public void setAngleInDegrees(double positionInDegrees) {
         mPID.setReference(positionInDegrees, ControlType.kPosition);
+    }
+
+    public double getVelocity() {
+        return mEncoder.getVelocity();
+    }
+
+    public double getEncoderDegrees() {
+        return mEncoder.getPosition();
     }
 }
 

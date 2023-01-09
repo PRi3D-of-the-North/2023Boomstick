@@ -1,6 +1,8 @@
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.Arm;
 
 public class ArmSetPosition extends CommandBase {
@@ -24,14 +26,17 @@ public class ArmSetPosition extends CommandBase {
   @Override
   public void execute() {
     double targetPosition = mAngle;
-    
-      if (mArm.getRearLimit() && mArm.getVelocityInDegreesPerSecond() < -Constants.kEpsilon) {
-        Robot.m_wrist.setPercentOutput(0.0);
-      } else if (Robot.m_wrist.getTopLimitSwitch() && Robot.m_wrist.getVelocityInDegreesPerSecond() > Constants.kEpsilon) {
-        Robot.m_wrist.setPercentOutput(0.0);
+    SmartDashboard.putNumber("Target Arm Pos", targetPosition);
+    SmartDashboard.putNumber("Actual Position", mArm.getEncoderDegrees());
+
+      if (mArm.getRearLimit() && mArm.getVelocity() < -Constants.EPSILON) {
+        mArm.setPercentOutput(0.0);
+      } else if (mArm.getForwardLimit() && mArm.getVelocity() > Constants.EPSILON) {
+        mArm.setPercentOutput(0.0);
       } else {
-        Robot.m_wrist.setPositionInDegrees(targetPosition);
+        mArm.setAngleInDegrees(targetPosition);
     }
+  }
 
   // Called once the command ends or is interrupted.
   @Override
