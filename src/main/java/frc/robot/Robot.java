@@ -43,12 +43,6 @@ public class Robot extends TimedRobot {
     } else if (mRobotContainer.getArm().getForwardLimit()) {
       mRobotContainer.getArm().setEncoderValueInDegrees(0.0);
     }
-
-    if (mRobotContainer.getElevator().getRetractLimit()) {
-      mRobotContainer.getElevator().setEncoderValueInInches(0.0);
-    } else if (mRobotContainer.getElevator().getExtendLimit()) {
-      mRobotContainer.getElevator().setEncoderValueInInches(32.0);
-    }
   }
 
   /** This function is called once each time the robot enters Disabled mode. */

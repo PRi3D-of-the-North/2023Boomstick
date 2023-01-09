@@ -37,12 +37,12 @@ public class RobotContainer {
 	private void configureBindings() {
 		mXbox.back().onTrue(mDrivetrain.zeroGyroscopeCommand());
 		
-		mJoystick.button(3).whileTrue(new ArmSetPercentOutput(mArm, -0.1));
-		mJoystick.button(4).whileTrue(new ArmSetPercentOutput(mArm, 0.1));
-		//mJoystick.button(3).onTrue(new ClawSetState(mClaw, false));
-		//mJoystick.button(4).onTrue(new ClawSetState(mClaw, true));
-		mJoystick.button(5).whileTrue(new ElevatorSetPercentOutput(mElevator, -1.0));
-		mJoystick.button(6).whileTrue(new ElevatorSetPercentOutput(mElevator, 1.0));
+		mJoystick.button(3).whileTrue(new ArmSetPercentOutput(mArm, -0.2));
+		mJoystick.button(4).whileTrue(new ArmSetPercentOutput(mArm, 0.2));
+		mJoystick.button(5).onTrue(new ClawSetState(mClaw, false));
+		mJoystick.button(6).onTrue(new ClawSetState(mClaw, true));
+		//mJoystick.button(5).whileTrue(new ElevatorSetPercentOutput(mElevator, -1.0));
+		//mJoystick.button(6).whileTrue(new ElevatorSetPercentOutput(mElevator, 1.0));
 	}
 
 	public Command getAutonomousCommand() {

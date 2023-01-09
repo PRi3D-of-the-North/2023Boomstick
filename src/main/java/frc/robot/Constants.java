@@ -18,16 +18,14 @@ public final class Constants {
                           RIGHT_FRONT_STEER = 7,
                           RIGHT_REAR_STEER = 8;
   
-  public static final int ELEVATOR = 9, // SPARK MAX
-                          ARM = 10;
+  public static final int ELEVATOR = 10, // SPARK MAX
+                          ARM = 9;
 
   public static final int ARM_FORWARD_LIMIT = 0, // DIO
-                          ARM_REAR_LIMIT = 1,
-                          ELEVATOR_RETRACT_LIMIT = 2,
-                          ELEVATOR_EXTEND_LIMIT = 3;
+                          ARM_REAR_LIMIT = 1;
 
-  public static final int CLAW_FORWARD = 0, // Pistons
-                          CLAW_REVERSE = 1;
+  public static final int CLAW_FORWARD = 9, // Pistons
+                          CLAW_REVERSE = 8;
 
   public static final int LEFT_FRONT_ENCODER = 15, // CANCODERS
                           LEFT_REAR_ENCODER = 16,
