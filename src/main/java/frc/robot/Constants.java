@@ -32,6 +32,8 @@ public final class Constants {
                           RIGHT_FRONT_ENCODER = 17,
                           RIGHT_REAR_ENCODER = 18;
 
+  public static final int CANDLE = 19;
+
   public static final int MAX_COUNTS_PER_REV = 42;
   public static final double EPSILON = 0.0001;
   
@@ -40,8 +42,8 @@ public final class Constants {
   // The front-to-back distance between the drivetrain wheels. Should be measured from center to center.
   public static final double DRIVETRAIN_WHEELBASE_METERS = 0.623; // Measure and set wheelbase
 
-  public static final double LEFT_FRONT_STEER_OFFSET = -Math.toRadians(98.35); // Measure and set front left steer offset
-  public static final double LEFT_REAR_STEER_OFFSET = -Math.toRadians(221.13); // Measure and set front right steer offset
-  public static final double RIGHT_FRONT_STEER_OFFSET = -Math.toRadians(279.48); // Measure and set back left steer offset
-  public static final double RIGHT_REAR_STEER_OFFSET = -Math.toRadians(180.52); // Measure and set back right steer offset
+  public static final double LEFT_FRONT_STEER_OFFSET = -Math.toRadians(97.99); // Measure and set front left steer offset
+  public static final double LEFT_REAR_STEER_OFFSET = -Math.toRadians(221.65); // Measure and set front right steer offset
+  public static final double RIGHT_FRONT_STEER_OFFSET = -Math.toRadians(277.20); // Measure and set back left steer offset
+  public static final double RIGHT_REAR_STEER_OFFSET = -Math.toRadians(190.54); // Measure and set back right steer offset
 }
