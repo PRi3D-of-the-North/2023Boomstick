@@ -12,7 +12,6 @@ import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Claw;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Elevator;
-import frc.robot.subsystems.LEDs;
 
 public class RobotContainer {
 	private final CommandXboxController mXbox = new CommandXboxController(0);
@@ -22,7 +21,6 @@ public class RobotContainer {
 	private final Claw mClaw = new Claw();
 	private final Drivetrain mDrivetrain = new Drivetrain();
 	private final Elevator mElevator = new Elevator();
-	private final LEDs mLEDs = new LEDs();
 
 	public RobotContainer() {
 		mArm.setDefaultCommand(new LegalArmMovement(mElevator, mArm, mJoystick));
