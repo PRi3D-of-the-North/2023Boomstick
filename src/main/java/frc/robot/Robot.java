@@ -25,6 +25,8 @@ public class Robot extends TimedRobot {
 
     mRobotContainer = new RobotContainer();
     mLEDs = new LEDs();
+
+    mRobotContainer.zeroGyro();
   }
 
   /**
@@ -68,7 +70,6 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    mRobotContainer.zeroGyro();
   }
 
   /** This function is called periodically during operator control. */
